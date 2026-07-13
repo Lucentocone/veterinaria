@@ -2,6 +2,8 @@ module com.unam {
     requires javafx.controls;
     requires javafx.fxml;
 
-    opens com.unam to javafx.fxml;
-    exports com.unam;
+    requires transitive javafx.graphics;
+
+    opens com.unam.controller to javafx.fxml;
+    exports com.unam.controller;
 }
