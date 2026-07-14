@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="https://jakarta.ee/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence
+             https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd"
+             version="3.0">
+
+    <persistence-unit name="veterinariaDB" transaction-type="RESOURCE_LOCAL">
+
+        <class>com.unam.model.Cliente</class>
+        <class>com.unam.model.Mascota</class>
+        <class>com.unam.model.Veterinario</class>
+        <class>com.unam.model.Turno</class>
+        <class>com.unam.model.DetalleTurno</class>
+        <class>com.unam.model.Servicio</class>
+        <class>com.unam.model.Consulta</class>
+        <class>com.unam.model.Guarderia</class>
+        <class>com.unam.model.Peluqueria</class>
+        <class>com.unam.model.TipoVacuna</class>
+        <class>com.unam.model.Vacunacion</class>
+        <class>com.unam.model.HistorialMedico</class>
+
+        <properties>
+            <!-- Base de datos H2 embebida -->
+            <property name="jakarta.persistence.jdbc.driver"
+                      value="org.h2.Driver"/>
+            <property name="jakarta.persistence.jdbc.url"
+                      value="jdbc:h2:file:./veterinariaDB;AUTO_SERVER=TRUE"/>
+            <property name="jakarta.persistence.jdbc.user" value="sa"/>
+            <property name="jakarta.persistence.jdbc.password" value=""/>
+
+            <!-- Hibernate -->
+            <property name="hibernate.dialect"
+                      value="org.hibernate.dialect.H2Dialect"/>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+        </properties>
+
+    </persistence-unit>
+
+</persistence>
