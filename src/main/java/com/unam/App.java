@@ -1,4 +1,4 @@
-package com.unam.controller;
+package com.unam;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
