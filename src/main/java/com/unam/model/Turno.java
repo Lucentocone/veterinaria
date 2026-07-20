@@ -8,6 +8,7 @@ import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -116,11 +117,16 @@ public class Turno {
     }
 
     public boolean puedeCancelarse() {
-        if (estado == EstadoTurno.ATENDIDO || estado == EstadoTurno.CANCELADO) {
-            return false;
-        }
-        return Duration.between(LocalDateTime.now(), fechaHora).toHours() >= 24;
+    if (estado == EstadoTurno.ATENDIDO || estado == EstadoTurno.CANCELADO) {
+        return false;
     }
+    ZoneId zonaHoraria = ZoneId.systemDefault();
+    Duration tiempoRestante = Duration.between(
+        LocalDateTime.now(zonaHoraria).atZone(zonaHoraria),
+        fechaHora.atZone(zonaHoraria)
+    );
+    return tiempoRestante.toHours() >= 24;
+}
 
     public void cancelar() {
         if (estado == EstadoTurno.ATENDIDO) {

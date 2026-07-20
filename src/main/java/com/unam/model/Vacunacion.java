@@ -3,6 +3,7 @@ package com.unam.model;
 import com.unam.exception.VacunaVigenteException;
 import jakarta.persistence.*;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.Comparator;
 import java.util.List;
@@ -49,13 +50,14 @@ public class Vacunacion {
     }
 
     public boolean estaVigente() {
-        return !calcularFechaVencimiento().isBefore(LocalDate.now());
-    }
+    return !calcularFechaVencimiento().isBefore(LocalDate.now(ZoneId.systemDefault()));
+}
 
     public boolean venceEnLosProximosDias(int dias) {
-        long restantes = ChronoUnit.DAYS.between(LocalDate.now(), calcularFechaVencimiento());
-        return restantes >= 0 && restantes <= dias;
-    }
+    LocalDate hoy = LocalDate.now(ZoneId.systemDefault());
+    long restantes = ChronoUnit.DAYS.between(hoy, calcularFechaVencimiento());
+    return restantes >= 0 && restantes <= dias;
+}
 
     // Valida que se pueda aplicar una nueva vacuna de este tipo, dado el
     // historial de vacunaciones previas de la mascota (ya consultado por
