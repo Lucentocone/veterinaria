@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.unam.controller.HistorialController">
+    <top>
+        <VBox styleClass="toolbar">
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <padding><Insets top="12" right="16" bottom="6" left="16"/></padding>
+                <Button text="&lt; Menú" onAction="#volverAlMenu"/>
+                <Label text="Historial Médico" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+                <TextField fx:id="campoBusqueda" promptText="Buscar mascota por nombre o N° de ficha..." prefWidth="260"/>
+                <Button text="Buscar" onAction="#buscarMascotas"/>
+            </HBox>
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <padding><Insets top="0" right="16" bottom="12" left="16"/></padding>
+                <Label text="Resultado:"/>
+                <ComboBox fx:id="comboMascotas" prefWidth="260"/>
+                <Button text="Ver Historial" onAction="#verHistorialDeMascota"/>
+                <Label text="Tipo:"/>
+                <ComboBox fx:id="comboTipoFiltro" prefWidth="120"/>
+                <Label text="Desde:"/>
+                <DatePicker fx:id="fechaDesde"/>
+                <Label text="Hasta:"/>
+                <DatePicker fx:id="fechaHasta"/>
+                <Button text="Filtrar" onAction="#aplicarFiltro"/>
+            </HBox>
+        </VBox>
+    </top>
+    <center>
+        <VBox spacing="8">
+            <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
+            <TableView fx:id="tablaHistorial" VBox.vgrow="ALWAYS">
+                <columns>
+                    <TableColumn fx:id="colFecha" text="Fecha" prefWidth="160"/>
+                    <TableColumn fx:id="colTipo" text="Tipo" prefWidth="90"/>
+                    <TableColumn fx:id="colDescripcion" text="Descripción" prefWidth="500"/>
+                </columns>
+            </TableView>
+        </VBox>
+    </center>
+</BorderPane>

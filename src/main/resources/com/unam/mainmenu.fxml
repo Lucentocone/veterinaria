@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.unam.controller.MainMenuController" styleClass="root-pane">
+    <left>
+        <VBox spacing="12" prefWidth="240" styleClass="menu-panel">
+            <padding>
+                <Insets top="24" right="16" bottom="24" left="16"/>
+            </padding>
+            <Label text="Veterinaria" styleClass="menu-title"/>
+            <Label text="Sistema de Gestión" styleClass="menu-subtitle"/>
+            <VBox spacing="8" style="-fx-padding: 20 0 0 0;">
+                <Button text="Clientes y Mascotas" maxWidth="Infinity" onAction="#irAClientes"/>
+                <Button text="Gestión de Turnos" maxWidth="Infinity" onAction="#irATurnos"/>
+                <Button text="Historial Médico" maxWidth="Infinity" onAction="#irAHistorial"/>
+                <Button text="Control de Vacunaciones" maxWidth="Infinity" onAction="#irAVacunaciones"/>
+            </VBox>
+        </VBox>
+    </left>
+    <center>
+        <VBox alignment="CENTER" spacing="10">
+            <Label text="Bienvenido/a" style="-fx-font-size: 22px; -fx-font-weight: bold;"/>
+            <Label text="Seleccioná una opción del menú para comenzar."/>
+        </VBox>
+    </center>
+</BorderPane>

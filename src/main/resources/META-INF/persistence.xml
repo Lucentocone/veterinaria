@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="https://jakarta.ee/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence
+             https://jakarta.ee/xml/ns/persistence/persistence_3_1.xsd"
+             version="3.1">
+
+    <persistence-unit name="veterinariaPU" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+        <class>com.unam.model.Cliente</class>
+        <class>com.unam.model.Mascota</class>
+        <class>com.unam.model.Veterinario</class>
+        <class>com.unam.model.Servicio</class>
+        <class>com.unam.model.Consulta</class>
+        <class>com.unam.model.Peluqueria</class>
+        <class>com.unam.model.Guarderia</class>
+        <class>com.unam.model.Turno</class>
+        <class>com.unam.model.DetalleTurno</class>
+        <class>com.unam.model.TipoVacuna</class>
+        <class>com.unam.model.Vacunacion</class>
+        <class>com.unam.model.HistorialMedico</class>
+
+        <exclude-unlisted-classes>true</exclude-unlisted-classes>
+
+        <properties>
+            <!-- Base de datos H2 embebida en modo archivo: persiste en ./data/veterinaria.mv.db -->
+            <property name="jakarta.persistence.jdbc.driver" value="org.h2.Driver"/>
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:h2:file:./data/veterinaria;AUTO_SERVER=TRUE"/>
+            <property name="jakarta.persistence.jdbc.user" value="sa"/>
+            <property name="jakarta.persistence.jdbc.password" value=""/>
+
+            <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
+            <!-- 'update' conserva los datos entre ejecuciones, como pide la consigna -->
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <property name="hibernate.show_sql" value="false"/>
+            <property name="hibernate.format_sql" value="true"/>
+        </properties>
+    </persistence-unit>
+</persistence>
