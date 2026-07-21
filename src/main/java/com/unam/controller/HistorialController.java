@@ -30,14 +30,16 @@ public class HistorialController {
     private final HistorialService historialService = new HistorialService();
     private List<EntradaHistorial> historialCompleto = List.of();
 
+    private static final String FILTRO_TODOS = "TODOS";
+
     @FXML
     public void initialize() {
         colFecha.setCellValueFactory(d -> new SimpleStringProperty(d.getValue().fecha().toString().replace("T", " ")));
         colTipo.setCellValueFactory(d -> new SimpleStringProperty(d.getValue().tipo()));
         colDescripcion.setCellValueFactory(d -> new SimpleStringProperty(d.getValue().descripcion()));
 
-        comboTipoFiltro.setItems(FXCollections.observableArrayList("TODOS", "TURNO", "VACUNA"));
-        comboTipoFiltro.getSelectionModel().select("TODOS");
+        comboTipoFiltro.setItems(FXCollections.observableArrayList(FILTRO_TODOS, "TURNO", "VACUNA"));
+        comboTipoFiltro.getSelectionModel().select(FILTRO_TODOS);
 
         buscarMascotas();
 
@@ -81,7 +83,7 @@ public class HistorialController {
         LocalDate hasta = fechaHasta.getValue();
 
         List<EntradaHistorial> filtrado = historialCompleto.stream()
-            .filter(e -> tipo == null || tipo.equals("TODOS") || e.tipo().equals(tipo))
+            .filter(e -> tipo == null || tipo.equals(FILTRO_TODOS) || e.tipo().equals(tipo))
             .filter(e -> desde == null || !e.fecha().toLocalDate().isBefore(desde))
             .filter(e -> hasta == null || !e.fecha().toLocalDate().isAfter(hasta))
             .toList();

@@ -41,9 +41,21 @@ public class TurnosController {
         colEstado.setCellValueFactory(d -> new SimpleStringProperty(d.getValue().getEstado().toString()));
         colPrecio.setCellValueFactory(d -> new SimpleStringProperty("$" + d.getValue().getPrecio()));
 
-        LocalDate fechaInicial = SesionUI.getMascotaSeleccionada() != null ? LocalDate.now() : LocalDate.now();
-        selectorFecha.setValue(fechaInicial);
+        selectorFecha.setValue(fechaInicialSegunMascotaSeleccionada());
         cargarTurnosDeFecha();
+    }
+
+    // Si venimos de "Ver turnos" de una mascota puntual (ClientesController),
+    // arranca en la fecha de su próximo turno para no obligar a buscarla a
+    // mano en el calendario. Si esa mascota no tiene turnos próximos, o si
+    // se entró directamente a esta pantalla sin mascota seleccionada, se
+    // usa la fecha de hoy.
+    private LocalDate fechaInicialSegunMascotaSeleccionada() {
+        Long mascotaSeleccionada = SesionUI.getMascotaSeleccionada();
+        if (mascotaSeleccionada == null) {
+            return LocalDate.now();
+        }
+        return turnoService.obtenerProximaFechaTurno(mascotaSeleccionada).orElse(LocalDate.now());
     }
 
     @FXML

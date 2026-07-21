@@ -1,5 +1,6 @@
 package com.unam.service;
 
+import com.unam.enums.EstadoTurno;
 import com.unam.exception.EstadoTurnoInvalidoException;
 import com.unam.model.Mascota;
 import com.unam.model.Servicio;
@@ -13,6 +14,7 @@ import com.unam.repository.VeterinarioRepository;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Orquesta la creación y el ciclo de vida de los turnos. La validación de
@@ -70,6 +72,21 @@ public class TurnoService {
 
     public List<Turno> listarPorMascota(Long mascotaId) {
         return turnoRepository.buscarPorMascota(mascotaId);
+    }
+
+    /**
+     * Busca la fecha del próximo turno pendiente de una mascota (hoy o a
+     * futuro, sin contar los cancelados). Se usa para que la pantalla de
+     * Turnos, al entrar desde una mascota puntual, arranque mostrando esa
+     * fecha en vez de obligar a buscarla manualmente en el calendario.
+     */
+    public Optional<LocalDate> obtenerProximaFechaTurno(Long mascotaId) {
+        LocalDateTime ahora = LocalDateTime.now();
+        return turnoRepository.buscarPorMascota(mascotaId).stream()
+            .filter(t -> t.getEstado() != EstadoTurno.CANCELADO)
+            .filter(t -> !t.getFechaHora().isBefore(ahora))
+            .map(t -> t.getFechaHora().toLocalDate())
+            .min(LocalDate::compareTo);
     }
 
     public Turno confirmar(Turno turno) {
